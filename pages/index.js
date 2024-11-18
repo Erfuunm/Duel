@@ -7,55 +7,104 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import { GiThrownKnife } from "react-icons/gi";
 import { GiDwarfFace } from "react-icons/gi";
 import { GiCrossedSwords } from "react-icons/gi";
+import { useState } from 'react';
 
-function NameInput() {
+
+function NameInput({ lable }) {
 
   return (
     <>
-      <div class="flex flex-row gap-1 bg-white/80 rounded-md py-1 px-1">
-        <svg viewBox="0 0 344 384" height="26.72093023255814" width="24">
-          <path
-            d="M170.5 192q-35.5 0-60.5-25t-25-60.5T110 46t60.5-25T231 46t25 60.5t-25 60.5t-60.5 25zm0 43q31.5 0 69.5 9t69.5 29.5T341 320v43H0v-43q0-26 31.5-46.5T101 244t69.5-9z"
-            fill="#000000"
-          ></path>
-        </svg>
-        <input id="" name="" type="text" class="bg-inherit focus:outline-none pl-1" />
+      <div class="flex flex-row gap-1 w-1/4 bg-white/80 rounded-md py-1 px-1">
+
+        <input id="" placeholder={lable} name="" type="text" class="bg-inherit w-full focus:outline-none pl-1" />
       </div>
 
-      <div class="flex flex-row gap-1 bg-white/80 rounded-md py-1 px-1">
-        <svg viewBox="0 0 344 384" height="26.72093023255814" width="24">
-          <path
-            d="M170.5 192q-35.5 0-60.5-25t-25-60.5T110 46t60.5-25T231 46t25 60.5t-25 60.5t-60.5 25zm0 43q31.5 0 69.5 9t69.5 29.5T341 320v43H0v-43q0-26 31.5-46.5T101 244t69.5-9z"
-            fill="#000000"
-          ></path>
-        </svg>
-        <input id="" name="" type="text" class="bg-inherit focus:outline-none pl-1" />
-      </div>
-
-      <div class="flex flex-row gap-1 bg-white/80 rounded-md py-1 px-1">
-        <svg viewBox="0 0 344 384" height="26.72093023255814" width="24">
-          <path
-            d="M170.5 192q-35.5 0-60.5-25t-25-60.5T110 46t60.5-25T231 46t25 60.5t-25 60.5t-60.5 25zm0 43q31.5 0 69.5 9t69.5 29.5T341 320v43H0v-43q0-26 31.5-46.5T101 244t69.5-9z"
-            fill="#000000"
-          ></path>
-        </svg>
-        <input id="" name="" type="text" class="bg-inherit focus:outline-none pl-1" />
-      </div>
-
-      <div class="flex flex-row gap-1 bg-white/80 rounded-md py-1 px-1">
-        <svg viewBox="0 0 344 384" height="26.72093023255814" width="24">
-          <path
-            d="M170.5 192q-35.5 0-60.5-25t-25-60.5T110 46t60.5-25T231 46t25 60.5t-25 60.5t-60.5 25zm0 43q31.5 0 69.5 9t69.5 29.5T341 320v43H0v-43q0-26 31.5-46.5T101 244t69.5-9z"
-            fill="#000000"
-          ></path>
-        </svg>
-        <input id="" name="" type="text" class="bg-inherit focus:outline-none pl-1" />
-      </div>
     </>
   )
 }
 
+function FourPlayer({ }) {
+
+  return (
+    <>
+      <div className='flex flex-col items-center justify-center gap-8'>
+        <NameInput lable={'Player A'} />
+        <div className='flex flex-row justify-between items-center'>
+          <NameInput lable={'Player B'} />
+          <GiCrossedSwords size={50} className="icon" />
+          <NameInput lable={'Player B'} />
+        </div>
+        <NameInput lable={'Player A'} />
+      </div>
+
+    </>
+  )
+}
+
+function SixPlayer({ }) {
+
+  return (
+    <>
+      <div className='flex flex-col items-center justify-center gap-8'>
+        <div className='flex flex-row justify-around -space-x-16 items-center '>
+          <NameInput lable={'Player A'} />
+
+          <NameInput lable={'Player B'} />
+        </div>
+        <div className='flex flex-row justify-between items-center'>
+          <NameInput lable={'Player C'} />
+          <GiCrossedSwords size={50} className="icon" />
+          <NameInput lable={'Player C'} />
+        </div>
+        <div className='flex flex-row justify-around -space-x-16 items-center '>
+          <NameInput lable={'Player B'} />
+
+          <NameInput lable={'Player A'} />
+        </div>
+      </div>
+
+    </>
+  )
+}
+
+function EightPlayer({ }) {
+
+  return (
+    <>
+      <div className='flex flex-col items-center justify-center gap-8'>
+        <div className='flex flex-row justify-between items-center '>
+          <NameInput lable={'Player A'} />
+          <NameInput lable={'Player D'} />
+          <NameInput lable={'Player B'} />
+        </div>
+        <div className='flex flex-row justify-between items-center'>
+          <NameInput lable={'Player C'} />
+          <GiCrossedSwords size={50} className="icon" />
+          <NameInput lable={'Player C'} />
+        </div>
+        <div className='flex flex-row justify-between items-center '>
+          <NameInput lable={'Player B'} />
+          <NameInput lable={'Player D'} />
+          <NameInput lable={'Player A'} />
+        </div>
+      </div>
+
+    </>
+  )
+}
+
+
+
 function PlayGame({ isOpen, onOpenChange }) {
+
+  const [mode , setMode] = useState(4);
+
+  const modeHandler = (mode) => {
+
+    setMode(mode)
+
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -76,34 +125,35 @@ function PlayGame({ isOpen, onOpenChange }) {
                 <h3 className=''>Players :</h3>
               </div>
 
-              <div className='flex justify-center items-center mt-10 mb-16'>
-                <GiCrossedSwords size={50} color='' />
+              <div className='circle-container flex justify-center items-center mt-10 mb-16'>
 
+                {
+                  mode === 4 ?
+                  <FourPlayer />
+                  : mode === 6 ?
+                  <SixPlayer /> :
+                  <EightPlayer />
+                }
 
               </div>
 
               <div className='flex flex-row gap-6 justify-center mb-8'>
-                <Button isIconOnly className=' rounded-full border border-zinc-200' aria-label="Like">
-                  <div className='text-gray-200'>
+                <Button onClick={() => modeHandler(4)} isIconOnly className={` rounded-full border ${mode === 4 ? 'bg-slate-400 bg-opacity-35' : null} border-success`} aria-label="Like">
+                  <div className={`${mode === 4 ? 'text-gray-200' : 'text-gray-900'}`}>
                     <Fa4 />
                   </div>
                 </Button>
-                <Button isIconOnly className=' rounded-full border border-success' aria-label="Like">
-                  <div className='text-gray-900'>
+                <Button  onClick={() => modeHandler(6)} isIconOnly className={` rounded-full border ${mode === 6 ? 'bg-slate-400 bg-opacity-35' : null} border-success`} aria-label="Like">
+                <div className={`${mode === 6 ? 'text-gray-200' : 'text-gray-900'}`}>
                     <Fa6 />
                   </div>
                 </Button>
-                <Button isIconOnly className=' rounded-full border border-success' aria-label="Like">
-                  <div className='text-gray-900'>
+                <Button  onClick={() => modeHandler(8)} isIconOnly className={` rounded-full border ${mode === 8 ? 'bg-slate-400 bg-opacity-35' : null} border-success`} aria-label="Like">
+                <div className={`${mode === 8 ? 'text-gray-200' : 'text-gray-900'}`}>
                     <Fa8 />
                   </div>
                 </Button>
-                <Button isIconOnly className=' rounded-full border border-success' aria-label="Like">
-                  <div className='text-gray-900 flex -space-x-1 '>
-                    <Fa1 />
-                    <Fa0 />
-                  </div>
-                </Button>
+              
               </div>
 
 
