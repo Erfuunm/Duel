@@ -131,7 +131,7 @@ import Circles from '../../components/Circles';
 import Image from 'next/image';
 import { Avatar, Button } from '@nextui-org/react';
 
-function PlayerCard({ teams }) {
+function PlayerCard({ playerName }) {
   return (
 
     <div className="card2">
@@ -139,10 +139,10 @@ function PlayerCard({ teams }) {
         <div className="back">
           <div className="back-content">
             {
-              teams ?
+              playerName ?
                 <div className='flex items-center justify-start ml-10 w-full gap-6'>
                   <Avatar isBordered color="default" />
-                  <span className=' text-2xl pb-2 border-b-2 border-zinc-800 '>{teams[0]?.PlayerA}</span>
+                  <span className=' text-2xl pb-2 border-b-2 border-zinc-800 '>{playerName}</span>
                 </div> :
                 null
             }
@@ -175,131 +175,151 @@ function Card() {
 }
 
 
-function MyButton({ lable, color }) {
-  return (
+function MyButton({ Mode, lable, color , round , setRound }) {
 
-    <button class="button">
-      <span class={`button_lg ${color}` }>
-        <span class="button_sl"></span>
-        <span class="button_text">{lable}</span>
-      </span>
-    </button>
+  const changeRound = () => {
+    console.log('sajajjajaja')
+    if (Mode === 4) {
 
-  );
-}
+      if (round === 0) {
+        setRound(1)
+      } else if (round === 1) {
+        setRound(0)
+      }
 
+    }
+  }
 
+    return (
 
-
-function ScoreBoread2({ teams, scores }) {
-
-
-  return (
-    <div class="card" >
-      <div data-status="inprogress" class="teams">
-        <span class="team-info team-home">
-          <span class="team-info-container">
-            <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
-          </span>
+      <button onClick={()=> changeRound()} class="button">
+        <span class={`button_lg ${color}`}>
+          <span class="button_sl"></span>
+          <span class="button_text">{lable}</span>
         </span>
-        <span class="event-scoreboard">
-          <span class="event-score-container">
-            <span class="current-time-container">
-              <span class="progress-dots" data-progress="1S">
-                <span class="load"></span>
+      </button>
+
+    );
+  }
+
+
+
+
+  function ScoreBoread2({ teams, scores }) {
+
+
+    return (
+      <div class="card" >
+        <div data-status="inprogress" class="teams">
+          <span class="team-info team-home">
+            <span class="team-info-container">
+              <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
+            </span>
+          </span>
+          <span class="event-scoreboard">
+            <span class="event-score-container">
+              <span class="current-time-container">
+                <span class="progress-dots" data-progress="1S">
+                  <span class="load"></span>
+                </span>
+              </span>
+              <span class="score-container">
+                <span class="score-home">{scores[0]}</span>
+                <span class="custom-sep">-</span>
+                <span class="score-away">{scores[1]}</span>
               </span>
             </span>
-            <span class="score-container">
-              <span class="score-home">{scores[0]}</span>
-              <span class="custom-sep">-</span>
-              <span class="score-away">{scores[1]}</span>
+          </span>
+          <span class="team-info team-away">
+            <span class="team-info-container">
+              <span class="team-icon-container"></span>
+              <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
             </span>
           </span>
-        </span>
-        <span class="team-info team-away">
-          <span class="team-info-container">
-            <span class="team-icon-container"></span>
-            <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
-          </span>
-        </span>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 
-function ScoreBoard({ teams, scores }) {
+  function ScoreBoard({ teams, scores }) {
 
 
-  return (
-    <>
-      {
-        teams ?
-          <ScoreBoread2 teams={teams} scores={scores} />
-          :
-          null
+    return (
+      <>
+        {
+          teams ?
+            <ScoreBoread2 teams={teams} scores={scores} />
+            :
+            null
+        }
+      </>
+    );
+  }
+
+  const Game = () => {
+    const [index, setIndex] = useState(0);
+
+    const [teams, setTeams] = useState([]);
+    const [scores, setScores] = useState(['0', '0', '0', '0'])
+    const [round, setRound] = useState(1);
+    const [mode, setMode] = useState();
+
+    useEffect(() => {
+      // This code runs only on the client side
+      const gameData = JSON.parse(localStorage.getItem('gameData'));
+      console.log(gameData)
+      const playerNames = gameData ? gameData.playerNames : [];
+
+      setMode(gameData ? gameData.mode : null)
+
+
+
+      const newTeams = [];
+
+      // Create teams from player names
+      for (let i = 0; i < playerNames.length / 2; i++) {
+        const PlayerA = playerNames[i];
+        const PlayerB = playerNames[playerNames.length - 1 - i];
+        newTeams.push({ PlayerA, PlayerB });
       }
-    </>
-  );
-}
 
-const Game = () => {
-  const [index, setIndex] = useState(0);
+      setTeams(newTeams);
+      console.log(newTeams)
+    }, []);
 
-  const [teams, setTeams] = useState([]);
-  const [scores, setScores] = useState(['0', '0', '0', '0'])
+    console.log(index);
+    return (
+      <div className='h-full bg-primary/30  text-center xl:text-left  '>
 
-  useEffect(() => {
-    // This code runs only on the client side
-    const gameData = JSON.parse(localStorage.getItem('gameData'));
-    const playerNames = gameData ? gameData.playerNames : [];
-
-
-    const newTeams = [];
-
-    // Create teams from player names
-    for (let i = 0; i < playerNames.length / 2; i++) {
-      const PlayerA = playerNames[i];
-      const PlayerB = playerNames[playerNames.length - 1 - i];
-      newTeams.push({ PlayerA, PlayerB });
-    }
-
-    setTeams(newTeams);
-    console.log(newTeams)
-  }, []);
-
-  console.log(index);
-  return (
-    <div className='h-full bg-primary/30  text-center xl:text-left  '>
-
-      <div className='mt-0 px-1'>
-        <ScoreBoard scores={scores} teams={teams} />
-      </div>
-      <Circles />
-      <div className=' container mx-auto h-full flex flex-col justify-center items-center  gap-x-6 '>
-        <div className='  -mt-[30%]  flex flex-col justify-center gap-16'>
-
-          <div className='flex justify-center items-center'>
-            <PlayerCard teams={teams} />
-          </div>
-          <Card />
-          <div className='flex justify-center items-center'>
-            <PlayerCard teams={teams} />
-          </div>
-
-
-
+        <div className='mt-0 px-1'>
+          <ScoreBoard scores={scores} teams={teams} />
         </div>
-        <div className='flex items-center mt-16 gap-9'>
+        <Circles />
+        <div className=' container mx-auto h-full flex flex-col justify-center items-center  gap-x-6 '>
+          <div className='  -mt-[30%]  flex flex-col justify-center gap-16'>
 
-          <MyButton lable={'Failed'}  color={'bg-red-600'} />
-          <MyButton lable={'Done'} color={'bg-green-600'} />
+            <div className='flex justify-center items-center'>
+              <PlayerCard playerName={teams[round]?.PlayerA} />
+            </div>
+            <Card />
+            <div className='flex justify-center items-center'>
+              <PlayerCard playerName={teams[round]?.PlayerB} />
+            </div>
 
 
+
+          </div>
+          <div className='flex items-center mt-16 gap-9'>
+
+            <MyButton Mode={mode} lable={'Failed'} color={'bg-red-600'} round={round} setRound={setRound} />
+            <MyButton Mode={mode} lable={'Done'} color={'bg-green-600'} round={round} setRound={setRound} />
+
+
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
-export default Game;
+  export default Game;
