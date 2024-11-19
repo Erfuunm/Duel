@@ -128,37 +128,69 @@ export const aboutData = [
 
 
 import Circles from '../../components/Circles';
+import Image from 'next/image';
 
 
 
 
 /* From Uiverse.io by sofiapetushok */
 
+function Card() {
+  return (
 
-// function ScoreBoard() {
+    <div class="book bg-primary/30">
+       
+      <img src="" />
+      <div class="cover">
+      <Image src={'/logo-smal.png'} width={100} height={88} alt='' priority={true}/>
+      </div>
+    </div>
+
+  );
+}
 
 
-//   return (
-//     <div className="card">
-//       <div data-status="inprogress" className="teams">
-//         {teams.map((team, index) => (
-//           <div key={index} className="team">
-//             <span className="team-info team-home">
-//               <span className="team-info-container">
-//                 <span className="team-name-info">{`${team.team1} - ${team.team2}`}</span>
-//               </span>
-//             </span>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+function ScoreBoread2({ teams, scores }) {
+
+
+  return (
+    <div class="card" >
+      <div data-status="inprogress" class="teams">
+        <span class="team-info team-home">
+          <span class="team-info-container">
+            <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
+          </span>
+        </span>
+        <span class="event-scoreboard">
+          <span class="event-score-container">
+            <span class="current-time-container">
+              <span class="progress-dots" data-progress="1S">
+                <span class="load"></span>
+              </span>
+            </span>
+            <span class="score-container">
+              <span class="score-home">{scores[0]}</span>
+              <span class="custom-sep">-</span>
+              <span class="score-away">{scores[1]}</span>
+            </span>
+          </span>
+        </span>
+        <span class="team-info team-away">
+          <span class="team-info-container">
+            <span class="team-icon-container"></span>
+            <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
+          </span>
+        </span>
+      </div>
+    </div>
+  );
+}
 
 
 function ScoreBoard({ }) {
 
   const [teams, setTeams] = useState([]);
+  const [scores, setScores] = useState(['0', '0', '0', '0'])
 
   useEffect(() => {
     // This code runs only on the client side
@@ -182,35 +214,8 @@ function ScoreBoard({ }) {
     <>
       {
         teams ?
-          <div class="card" >
-            <div data-status="inprogress" class="teams">
-              <span class="team-info team-home">
-                <span class="team-info-container">
-                  <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
-                </span>
-              </span>
-              <span class="event-scoreboard">
-                <span class="event-score-container">
-                  <span class="current-time-container">
-                    <span class="progress-dots" data-progress="1S">
-                      <span class="load"></span>
-                    </span>
-                  </span>
-                  <span class="score-container">
-                    <span class="score-home">2</span>
-                    <span class="custom-sep">-</span>
-                    <span class="score-away">4</span>
-                  </span>
-                </span>
-              </span>
-              <span class="team-info team-away">
-                <span class="team-info-container">
-                  <span class="team-icon-container"></span>
-                  <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
-                </span>
-              </span>
-            </div>
-          </div> :
+          <ScoreBoread2 teams={teams} scores={scores} />
+          :
           null
       }
     </>
@@ -221,24 +226,20 @@ const Game = () => {
   const [index, setIndex] = useState(0);
   console.log(index);
   return (
-    <div className='h-[800px] bg-primary/30  text-center xl:text-left  '>
+    <div className='h-full bg-primary/30  text-center xl:text-left  '>
+  
       <div className='mt-0 px-1'>
-      <ScoreBoard />
+        <ScoreBoard />
       </div>
-     
       <Circles />
-      <div className=' container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6 '>
-        <div className='  mt-[150px] mb-[50px] xl:mt-[20px] flex-1 flex flex-col justify-center'>
+      <div className=' container mx-auto h-full flex justify-center items-center xl:flex-row gap-x-6 '>
+        <div className='  -mt-[35%]  flex flex-col justify-center'>
 
-
+          <Card />
 
 
 
         </div>
-
-
-
-
       </div>
     </div>
   );
