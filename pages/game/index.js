@@ -74,7 +74,7 @@ function Dower() {
         <span className='text-yellow-200 text-lg'>Dowr : </span>
         </div>
         <HintModal text={'in this game your team mate have to find the word . do not talk about the word directly'} isOpen={isOpen} onOpenChange={onOpenChange} />
-        <span className='text-white text-xl '>"نیروگاه هسته ای توس"</span>
+        <span className='text-white text-xl '>نیروگاه هسته ای توس</span>
       </div>
     </>
   );
@@ -93,7 +93,7 @@ function Panto() {
         <span className='text-yellow-200 text-lg'>Pantomime : </span>
         </div>
         <HintModal text={'in this game your team mate have to find the word . do not talk about the word directly'} isOpen={isOpen} onOpenChange={onOpenChange} />
-        <span className='text-white text-xl '>"از منظراین بادیه"</span>
+        <span className='text-white text-xl '>از منظراین بادیه</span>
       </div>
     </>
   );
@@ -225,7 +225,12 @@ const Game = () => {
   const [mode, setMode] = useState();
   const [currentComponent, setCurrentComponent] = useState(null);
 
-  const components = [<Panto />, <Dower />, <WichHand />, <RSPGame />];
+  const components = [
+    <Panto key="panto" />,
+    <Dower key="dower" />,
+    <WichHand key="wichHand" />,
+    <RSPGame key="rspGame" />
+  ];
 
   const getRandomComponent = () => {
     const randomIndex = Math.floor(Math.random() * components.length);
