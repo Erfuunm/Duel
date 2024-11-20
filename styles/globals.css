@@ -127,6 +127,7 @@ img {
 .card .teams {
   display: flex;
   flex-wrap: nowrap;
+  
   align-items: center;
   justify-content: center;
   background: linear-gradient(90deg, transparent, #111, transparent);

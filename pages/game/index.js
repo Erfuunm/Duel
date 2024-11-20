@@ -161,6 +161,12 @@ function MyButton({ Mode, label, color, round, scores, setScores, setRound, chan
     if (Mode === 4) {
       setRound((prevRound) => (prevRound === 0 ? 1 : 0));
     }
+    else if(Mode === 8){
+      if(round === 0) setRound(1)
+        else if(round === 1) setRound(2)
+        else if(round === 2) setRound(3)
+          else if(round === 3) setRound(0)
+    }
 
     // Change to the next component
     changeComponent();
@@ -226,15 +232,88 @@ function ScoreBoread2({ teams, scores }) {
   );
 }
 
+function ScoreBoread4({ teams, scores }) {
 
-function ScoreBoard({ teams, scores }) {
+
+  return (
+   <>
+    <div class="card" >
+      <div data-status="inprogress" class="teams">
+        <span class="team-info team-home">
+          <span class="team-info-container">
+            <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
+          </span>
+        </span>
+        <span class="event-scoreboard">
+          <span class="event-score-container">
+            <span class="current-time-container">
+              <span class="progress-dots" data-progress="1S">
+                <span class="load"></span>
+              </span>
+            </span>
+            <span class="score-container">
+              <span class="score-home">{scores[0]}</span>
+              <span class="custom-sep">-</span>
+              <span class="score-away">{scores[1]}</span>
+            </span>
+          </span>
+        </span>
+        <span class="team-info team-away">
+          <span class="team-info-container">
+            <span class="team-icon-container"></span>
+            <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="card" >
+      <div data-status="inprogress" class="teams">
+        <span class="team-info team-home">
+          <span class="team-info-container">
+            <span class="team-name-info">{teams[2]?.PlayerA + ' - ' + teams[2]?.PlayerB}</span>
+          </span>
+        </span>
+        <span class="event-scoreboard">
+          <span class="event-score-container">
+            <span class="current-time-container">
+              <span class="progress-dots" data-progress="1S">
+                <span class="load"></span>
+              </span>
+            </span>
+            <span class="score-container">
+              <span class="score-home">{scores[2]}</span>
+              <span class="custom-sep">-</span>
+              <span class="score-away">{scores[3]}</span>
+            </span>
+          </span>
+        </span>
+        <span class="team-info team-away">
+          <span class="team-info-container">
+            <span class="team-icon-container"></span>
+            <span class="team-name-info">{teams[3]?.PlayerA + ' - ' + teams[3]?.PlayerB}</span>
+          </span>
+        </span>
+      </div>
+    </div>
+   </>
+  );
+}
+
+
+function ScoreBoard({ teams, scores, mode }) {
 
 
   return (
     <>
       {
         teams ?
-          <ScoreBoread2 teams={teams} scores={scores} />
+          mode === 4 ?
+            <ScoreBoread2 teams={teams} scores={scores} /> :
+            <>
+              <ScoreBoread4 teams={teams} scores={scores} />
+              
+            </>
           :
           null
       }
@@ -288,12 +367,13 @@ const Game = () => {
   return (
     <div className='h-full bg-primary/30 text-center xl:text-left'>
       <div className='mt-0 px-1'>
-        <ScoreBoard scores={scores} teams={teams} />
+        <ScoreBoard mode={mode} scores={scores} teams={teams} />
       </div>
       {/* <Circles /> */}
       <div className='container mx-auto h-full flex flex-col justify-center items-center gap-x-6'>
-        <div className='-mt-[30%] flex flex-col justify-center gap-16'>
+        <div className='-mt-[48%] flex flex-col justify-center gap-16'>
           <div className='flex justify-center items-center'>
+            {round}
             <PlayerCard playerName={teams[round]?.PlayerA} />
           </div>
           <Card currentComponent={currentComponent} />
@@ -301,9 +381,6 @@ const Game = () => {
             <PlayerCard playerName={teams[round]?.PlayerB} />
           </div>
         </div>
-        {
-          scores[round]
-        }
         <div className='flex items-center mt-16 gap-12'>
           <MyButton Mode={mode} label={'Failed'} color={'bg-red-600'} round={round} scores={scores} setRound={setRound} changeComponent={changeComponent} />
           <MyButton Mode={mode} label={'Done'} color={'bg-green-600'} round={round} setScores={setScores} setRound={setRound} changeComponent={changeComponent} />
