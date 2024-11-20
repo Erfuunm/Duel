@@ -1,5 +1,6 @@
 //  data
 import React, { useEffect, useState } from 'react';
+import sentences from './sentences.json';  // Adjust the path as necessary
 
 import Circles from '../../components/Circles';
 import Image from 'next/image';
@@ -62,38 +63,48 @@ function WichHand() {
   );
 }
 
-function Dower() {
 
+function Dower() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const randomIndex = Math.floor(Math.random() * sentences.length);
+  const randomSentence = sentences[randomIndex]; // Get a random sentence
+
   return (
     <>
-      <Button isIconOnly className='fixed top-4 left-4 ' onPress={onOpen}><RiInformationLine size={40} className='text-yellow-200' /></Button>
+      <Button isIconOnly className='fixed top-4 left-4 ' onPress={onOpen}>
+        <RiInformationLine size={40} className='text-yellow-200' />
+      </Button>
       <div className='flex flex-col items-center justify-center gap-2'>
         <div className='flex flex-col items-center gap-3'>
-        <Avatar isBordered className='w-16 h-16' icon={< FaSnapchat className='text-gray-300 ' size={35} />} />
-        <span className='text-yellow-200 text-lg'>Dowr : </span>
+          <Avatar isBordered className='w-16 h-16' icon={<FaSnapchat className='text-gray-300 ' size={35} />} />
+          <span className='text-yellow-200 text-lg'>Dower: </span>
         </div>
         <HintModal text={'in this game your team mate have to find the word . do not talk about the word directly'} isOpen={isOpen} onOpenChange={onOpenChange} />
-        <span className='text-white text-xl '>نیروگاه هسته ای توس</span>
+        <span className='text-white text-xl'>{randomSentence}</span>
       </div>
     </>
   );
 }
 
 
-function Panto() {
 
+function Panto() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const randomIndex = Math.floor(Math.random() * sentences.length);
+  const randomSentence = sentences[randomIndex]; // Get a random sentence
+
   return (
     <>
-      <Button isIconOnly className='fixed top-4 left-4 ' onPress={onOpen}><RiInformationLine size={40} className='text-yellow-200' /></Button>
+      <Button isIconOnly className='fixed top-4 left-4 ' onPress={onOpen}>
+        <RiInformationLine size={40} className='text-yellow-200' />
+      </Button>
       <div className='flex flex-col items-center justify-center gap-2'>
         <div className='flex flex-col items-center gap-3'>
-        <Avatar isBordered className='w-16 h-16' icon={< PiPerson className='text-gray-300 ' size={35} />} />
-        <span className='text-yellow-200 text-lg'>Pantomime : </span>
+          <Avatar isBordered className='w-16 h-16' icon={<PiPerson className='text-gray-300 ' size={35} />} />
+          <span className='text-yellow-200 text-lg'>Pantomime: </span>
         </div>
         <HintModal text={'in this game your team mate have to find the word . do not talk about the word directly'} isOpen={isOpen} onOpenChange={onOpenChange} />
-        <span className='text-white text-xl '>از منظراین بادیه</span>
+        <span className='text-white text-xl'>{randomSentence}</span>
       </div>
     </>
   );
@@ -144,19 +155,33 @@ function Card({ currentComponent }) {
 }
 
 
-function MyButton({ Mode, label, color, round, setRound, changeComponent }) {
+function MyButton({ Mode, label, color, round, scores, setScores, setRound, changeComponent }) {
   const handleClick = () => {
+    // Update round if Mode is 4
     if (Mode === 4) {
       setRound((prevRound) => (prevRound === 0 ? 1 : 0));
     }
-    changeComponent(); // Change component on button click
+
+    // Change to the next component
+    changeComponent();
+
+    // Update scores if setScores is provided
+    if (setScores) {
+      setScores((prevScores) => {
+        // Create a new array with the updated score
+        const newScores = [...prevScores];  // Clone the previous scores array
+        newScores[round] = parseInt(newScores[round]) + 1; // Increment the current round's score
+        return newScores; // Return the new scores array
+      });
+      console.log(scores); // This will log the previous `scores` state value before the update
+    }
   };
 
   return (
     <button onClick={handleClick} className="button">
       <span className={`button_lg ${color}`}>
-        <span class="button_sl"></span>
-        <span class="button_text">{label}</span>
+        <span className="button_sl"></span>
+        <span className="button_text">{label}</span>
       </span>
     </button>
   );
@@ -265,7 +290,7 @@ const Game = () => {
       <div className='mt-0 px-1'>
         <ScoreBoard scores={scores} teams={teams} />
       </div>
-      <Circles />
+      {/* <Circles /> */}
       <div className='container mx-auto h-full flex flex-col justify-center items-center gap-x-6'>
         <div className='-mt-[30%] flex flex-col justify-center gap-16'>
           <div className='flex justify-center items-center'>
@@ -276,9 +301,12 @@ const Game = () => {
             <PlayerCard playerName={teams[round]?.PlayerB} />
           </div>
         </div>
-        <div className='flex items-center mt-16 gap-9'>
-          <MyButton Mode={mode} label={'Failed'} color={'bg-red-600'} round={round} setRound={setRound} changeComponent={changeComponent} />
-          <MyButton Mode={mode} label={'Done'} color={'bg-green-600'} round={round} setRound={setRound} changeComponent={changeComponent} />
+        {
+          scores[round]
+        }
+        <div className='flex items-center mt-16 gap-12'>
+          <MyButton Mode={mode} label={'Failed'} color={'bg-red-600'} round={round} scores={scores} setRound={setRound} changeComponent={changeComponent} />
+          <MyButton Mode={mode} label={'Done'} color={'bg-green-600'} round={round} setScores={setScores} setRound={setRound} changeComponent={changeComponent} />
         </div>
       </div>
     </div>
