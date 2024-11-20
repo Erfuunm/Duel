@@ -1,139 +1,14 @@
 //  data
 import React, { useEffect, useState } from 'react';
 
-
-import {
-
-  FaJs,
-  FaReact,
-  FaWordpress,
-  FaFigma,
-  FaMicrosoft,
-
-
-} from 'react-icons/fa'
-
-import {
-  SiNextdotjs,
-  SiCsharp,
-  SiCplusplus,
-  SiMongodb,
-  SiReactquery,
-  SiMicrosoftsqlserver,
-  SiRedux,
-  SiLinux,
-  SiDotnet,
-  SiBlazor,
-  SiFramer,
-  SiAdobephotoshop,
-  SiTailwindcss,
-
-} from 'react-icons/si';
-
-
-export const aboutData = [
-  {
-    title: 'skills',
-    info: [
-      {
-        title: 'BackEnd Skills : ',
-        icons: [
-          <SiDotnet key={2} />,
-          <SiCsharp key={2} />,
-          <SiLinux key={2} />,
-          <FaMicrosoft key={2} />,
-          <FaJs key={2} />,
-          <SiMicrosoftsqlserver key={2} />,
-          <SiMongodb key={2} />,
-
-          <SiCplusplus key={2} />,
-
-
-        ],
-      },
-      {
-        title: 'Front Skills :',
-        icons: [
-          <SiBlazor key={2} />,
-          <FaReact key={2} />,
-
-          <SiRedux key={2} />,
-          <SiFramer key={2} />,
-          <SiNextdotjs key={2} />,
-          <SiTailwindcss key={2} />,
-          <SiReactquery key={2} />,
-          <FaFigma key={2} />,
-          <SiAdobephotoshop key={2} />,
-          <FaWordpress key={2} />],
-
-      },
-      {
-        title: 'UI/UX Design',
-        icons: [<FaFigma key={2} />, <SiAdobephotoshop key={2} />],
-      },
-    ],
-  },
-  {
-    title: 'awards',
-    info: [
-      {
-        title: 'ICPC of Ferdowsi university',
-        stage: '',
-      },
-      {
-        title: 'ICPC of Sajjad university',
-        stage: '',
-      },
-    ],
-  },
-  {
-    title: 'experience',
-    info: [
-      {
-        title: 'fronted developer - Moein Software Group ',
-        stage: '2024',
-      },
-      {
-        title: 'Intern - Cycass Company',
-        stage: '2023',
-      },
-      {
-        title: 'Web Developer - Freelancing ',
-        stage: '2021 - 2023',
-      },
-      {
-        title: 'Teaching - Schools & State cultural centers',
-        stage: '2022 - 2023',
-      },
-    ],
-  },
-  {
-    title: 'credentials',
-    info: [
-      {
-        title: 'Mathematics diploma - Mashhad, ZendeYadSadeghi HS, IR',
-        stage: '2022',
-      },
-      {
-        title: 'Computer Engineering - Mashhad, Ferdowsi University Of Mashhad',
-        stage: '2023',
-      },
-      {
-        title: 'Certified Graphic Designer And Teaching Programming - Mashhad , Fum',
-        stage: '2023',
-      },
-    ],
-  },
-];
-
-
 import Circles from '../../components/Circles';
 import Image from 'next/image';
-import { Avatar, Button } from '@nextui-org/react';
+import { Avatar, Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react';
+import { FaRegHandScissors } from "react-icons/fa";
+import { RiInformationLine } from "react-icons/ri";
 
 function PlayerCard({ playerName }) {
   return (
-
     <div className="card2">
       <div className="content">
         <div className="back">
@@ -146,13 +21,39 @@ function PlayerCard({ playerName }) {
                 </div> :
                 null
             }
-
           </div>
         </div>
-
       </div>
     </div>
+  );
+}
 
+function HintModal({ isOpen, onOpenChange }) {
+  return (
+    <Modal
+      isOpen={isOpen}
+      backdrop='blur'
+      onOpenChange={onOpenChange}
+      placement="center"
+      className='bg-gradient-to-tr from-transparent rounded-3xl via-[rgba(120,87,87,1.6)] to-transparent'
+    >
+      <ModalContent>
+        <>
+          <ModalHeader className="flex flex-col gap-1">game Hint :</ModalHeader>
+          <hr className='bg-green-800 w-11/12 mx-auto' />
+          <ModalBody>
+            <div className='flex flex-row text-gray-300 items-center gap-2  '>
+
+              <h4 className='mt-2 mb-2'>in this game you should chose one player (not from your team) and play Paper - Scissors - Rock.
+                If you beat her then your team will catch the point .
+              </h4>
+            </div>
+
+          </ModalBody>
+
+        </>
+      </ModalContent>
+    </Modal>
   );
 }
 
@@ -161,11 +62,18 @@ function PlayerCard({ playerName }) {
 /* From Uiverse.io by sofiapetushok */
 
 function Card() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
 
     <div class="book bg-primary/30">
+      <Button isIconOnly className='fixed top-4 left-4 ' onPress={onOpen}><RiInformationLine size={40} className='text-yellow-200' /></Button>
+      <div className='flex flex-col items-center justify-center gap-8'>
 
-      <img src="" />
+        <Avatar isBordered className='w-16 h-16' icon={< FaRegHandScissors className='text-gray-300 ' size={35} />} />
+        <HintModal isOpen={isOpen} onOpenChange={onOpenChange} />
+        <span className='text-white text-xl'>Paper - Scissors - Rock</span>
+
+      </div>
       <div class="cover">
         <Image src={'/logo-smal.png'} width={100} height={88} alt='' priority={true} />
       </div>
@@ -174,8 +82,7 @@ function Card() {
   );
 }
 
-
-function MyButton({ Mode, lable, color , round , setRound }) {
+function MyButton({ Mode, lable, color, round, setRound }) {
 
   const changeRound = () => {
     console.log('sajajjajaja')
@@ -190,136 +97,136 @@ function MyButton({ Mode, lable, color , round , setRound }) {
     }
   }
 
-    return (
+  return (
 
-      <button onClick={()=> changeRound()} class="button">
-        <span class={`button_lg ${color}`}>
-          <span class="button_sl"></span>
-          <span class="button_text">{lable}</span>
+    <button onClick={() => changeRound()} class="button">
+      <span class={`button_lg ${color}`}>
+        <span class="button_sl"></span>
+        <span class="button_text">{lable}</span>
+      </span>
+    </button>
+
+  );
+}
+
+
+
+
+function ScoreBoread2({ teams, scores }) {
+
+
+  return (
+    <div class="card" >
+      <div data-status="inprogress" class="teams">
+        <span class="team-info team-home">
+          <span class="team-info-container">
+            <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
+          </span>
         </span>
-      </button>
-
-    );
-  }
-
-
-
-
-  function ScoreBoread2({ teams, scores }) {
-
-
-    return (
-      <div class="card" >
-        <div data-status="inprogress" class="teams">
-          <span class="team-info team-home">
-            <span class="team-info-container">
-              <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
-            </span>
-          </span>
-          <span class="event-scoreboard">
-            <span class="event-score-container">
-              <span class="current-time-container">
-                <span class="progress-dots" data-progress="1S">
-                  <span class="load"></span>
-                </span>
-              </span>
-              <span class="score-container">
-                <span class="score-home">{scores[0]}</span>
-                <span class="custom-sep">-</span>
-                <span class="score-away">{scores[1]}</span>
+        <span class="event-scoreboard">
+          <span class="event-score-container">
+            <span class="current-time-container">
+              <span class="progress-dots" data-progress="1S">
+                <span class="load"></span>
               </span>
             </span>
-          </span>
-          <span class="team-info team-away">
-            <span class="team-info-container">
-              <span class="team-icon-container"></span>
-              <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
+            <span class="score-container">
+              <span class="score-home">{scores[0]}</span>
+              <span class="custom-sep">-</span>
+              <span class="score-away">{scores[1]}</span>
             </span>
           </span>
-        </div>
+        </span>
+        <span class="team-info team-away">
+          <span class="team-info-container">
+            <span class="team-icon-container"></span>
+            <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
+          </span>
+        </span>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 
-  function ScoreBoard({ teams, scores }) {
+function ScoreBoard({ teams, scores }) {
 
 
-    return (
-      <>
-        {
-          teams ?
-            <ScoreBoread2 teams={teams} scores={scores} />
-            :
-            null
-        }
-      </>
-    );
-  }
-
-  const Game = () => {
-    const [index, setIndex] = useState(0);
-
-    const [teams, setTeams] = useState([]);
-    const [scores, setScores] = useState(['0', '0', '0', '0'])
-    const [round, setRound] = useState(1);
-    const [mode, setMode] = useState();
-
-    useEffect(() => {
-      // This code runs only on the client side
-      const gameData = JSON.parse(localStorage.getItem('gameData'));
-      console.log(gameData)
-      const playerNames = gameData ? gameData.playerNames : [];
-
-      setMode(gameData ? gameData.mode : null)
-
-
-
-      const newTeams = [];
-
-      // Create teams from player names
-      for (let i = 0; i < playerNames.length / 2; i++) {
-        const PlayerA = playerNames[i];
-        const PlayerB = playerNames[playerNames.length - 1 - i];
-        newTeams.push({ PlayerA, PlayerB });
+  return (
+    <>
+      {
+        teams ?
+          <ScoreBoread2 teams={teams} scores={scores} />
+          :
+          null
       }
+    </>
+  );
+}
 
-      setTeams(newTeams);
-      console.log(newTeams)
-    }, []);
+const Game = () => {
+  const [index, setIndex] = useState(0);
 
-    console.log(index);
-    return (
-      <div className='h-full bg-primary/30  text-center xl:text-left  '>
+  const [teams, setTeams] = useState([]); //storing teams name
+  const [scores, setScores] = useState(['0', '0', '0', '0']) //storing teams scores
+  const [round, setRound] = useState(1);
+  const [mode, setMode] = useState();
 
-        <div className='mt-0 px-1'>
-          <ScoreBoard scores={scores} teams={teams} />
+  useEffect(() => {
+    // This code runs only on the client side
+    const gameData = JSON.parse(localStorage.getItem('gameData'));
+    console.log(gameData)
+    const playerNames = gameData ? gameData.playerNames : [];
+
+    setMode(gameData ? gameData.mode : null)
+
+
+
+    const newTeams = [];
+
+    // Create teams from player names
+    for (let i = 0; i < playerNames.length / 2; i++) {
+      const PlayerA = playerNames[i];
+      const PlayerB = playerNames[playerNames.length - 1 - i];
+      newTeams.push({ PlayerA, PlayerB });
+    }
+
+    setTeams(newTeams);
+    console.log(newTeams)
+  }, []);
+
+  console.log(index);
+  return (
+    <div className='h-full bg-primary/30  text-center xl:text-left  '>
+
+      <div className='mt-0 px-1'>
+        <ScoreBoard scores={scores} teams={teams} />
+      </div>
+      <Circles />
+      <div className=' container mx-auto h-full flex flex-col justify-center items-center  gap-x-6 '>
+        <div className='  -mt-[30%]  flex flex-col justify-center gap-16'>
+
+          <div className='flex justify-center items-center'>
+            <PlayerCard playerName={teams[round]?.PlayerA} />
+          </div>
+          <Card />
+          <div className='flex justify-center items-center'>
+            <PlayerCard playerName={teams[round]?.PlayerB} />
+          </div>
+
+
+
         </div>
-        <Circles />
-        <div className=' container mx-auto h-full flex flex-col justify-center items-center  gap-x-6 '>
-          <div className='  -mt-[30%]  flex flex-col justify-center gap-16'>
+        <div className='flex items-center mt-16 gap-9'>
 
-            <div className='flex justify-center items-center'>
-              <PlayerCard playerName={teams[round]?.PlayerA} />
-            </div>
-            <Card />
-            <div className='flex justify-center items-center'>
-              <PlayerCard playerName={teams[round]?.PlayerB} />
-            </div>
+          <MyButton Mode={mode} lable={'Failed'} color={'bg-red-600'} round={round} setRound={setRound} />
+          <MyButton Mode={mode} lable={'Done'} color={'bg-green-600'} round={round} setRound={setRound} />
 
 
-
-          </div>
-          <div className='flex items-center mt-16 gap-9'>
-
-            <MyButton Mode={mode} lable={'Failed'} color={'bg-red-600'} round={round} setRound={setRound} />
-            <MyButton Mode={mode} lable={'Done'} color={'bg-green-600'} round={round} setRound={setRound} />
-
-
-          </div>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Game;
+export default Game;
