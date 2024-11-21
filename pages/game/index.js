@@ -77,7 +77,7 @@ function Dower() {
       <div className='flex flex-col items-center justify-center gap-2'>
         <div className='flex flex-col items-center gap-3'>
           <Avatar isBordered className='w-16 h-16' icon={<FaSnapchat className='text-gray-300 ' size={35} />} />
-          <span className='text-yellow-200 text-lg'>Dower: </span>
+          <span className='text-yellow-200 text-lg'>Dower </span>
         </div>
         <HintModal text={'in this game your team mate have to find the word . do not talk about the word directly'} isOpen={isOpen} onOpenChange={onOpenChange} />
         <span className='text-white text-xl'>{randomSentence}</span>
@@ -101,7 +101,7 @@ function Panto() {
       <div className='flex flex-col items-center justify-center gap-2'>
         <div className='flex flex-col items-center gap-3'>
           <Avatar isBordered className='w-16 h-16' icon={<PiPerson className='text-gray-300 ' size={35} />} />
-          <span className='text-yellow-200 text-lg'>Pantomime: </span>
+          <span className='text-yellow-200 text-lg'>Pantomime </span>
         </div>
         <HintModal text={'in this game your team mate have to find the word . do not talk about the word directly'} isOpen={isOpen} onOpenChange={onOpenChange} />
         <span className='text-white text-xl'>{randomSentence}</span>
@@ -373,7 +373,6 @@ const Game = () => {
       <div className='container mx-auto h-full flex flex-col justify-center items-center gap-x-6'>
         <div className='-mt-[48%] flex flex-col justify-center gap-16'>
           <div className='flex justify-center items-center'>
-            {round}
             <PlayerCard playerName={teams[round]?.PlayerA} />
           </div>
           <Card currentComponent={currentComponent} />
