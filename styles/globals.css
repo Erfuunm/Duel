@@ -280,7 +280,7 @@ img {
   margin: 10px 0;
 }
 .card .event-scoreboard .event-score-container .score-container {
-  font-size: 24px;
+  font-size: 15px;
   background: linear-gradient(90deg, #3a3dff, #ff2929);
   -webkit-background-clip: text;
   width: 100%;

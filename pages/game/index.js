@@ -200,7 +200,7 @@ function ScoreBoread2({ teams, scores }) {
 
 
   return (
-    <div class="card" >
+    <div class="card mb-10 " >
       <div data-status="inprogress" class="teams">
         <span class="team-info team-home">
           <span class="team-info-container">
@@ -237,7 +237,7 @@ function ScoreBoread4({ teams, scores }) {
 
   return (
    <>
-    <div class="card" >
+    <div class="card mb-5" >
       <div data-status="inprogress" class="teams">
         <span class="team-info team-home">
           <span class="team-info-container">
