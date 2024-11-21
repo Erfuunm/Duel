@@ -367,7 +367,7 @@ const Game = () => {
   return (
     <div className='h-full bg-primary/30 text-center xl:text-left'>
       <div className='mt-0 px-1'>
-        {/* <ScoreBoard mode={mode} scores={scores} teams={teams} /> */}
+        <ScoreBoard mode={mode} scores={scores} teams={teams} />
       </div>
       {/* <Circles /> */}
       <div className='container mx-auto h-full flex flex-col justify-center items-center gap-x-6'>
