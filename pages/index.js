@@ -165,7 +165,7 @@ function PlayGame({ isOpen, onOpenChange }) {
               Close
             </Button>
             <Button onClick={handlePlay} className='rounded-xl' color="secondary">
-              Play
+               Play
             </Button>
           </ModalFooter>
         </>
