@@ -4,7 +4,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure
 import { Fa4, Fa6, Fa8 } from "react-icons/fa6";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { GiCrossedSwords } from "react-icons/gi";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import Nav from '../components/Nav';
@@ -24,6 +24,8 @@ function NameInput({ label, value, onChange }) {
     </div>
   );
 }
+
+
 
 // Four player component
 function FourPlayer({ playerNames, playerChangeHandlers }) {
@@ -90,6 +92,10 @@ function PlayGame({ isOpen, onOpenChange }) {
   const [mode, setMode] = useState(4);
   const [playerNames, setPlayerNames] = useState(['', '', '', '']);
   const router = useRouter();
+
+  useEffect(()=>{
+console.log("test")
+  },[])
 
   const modeHandler = (newMode) => {
     setMode(newMode);

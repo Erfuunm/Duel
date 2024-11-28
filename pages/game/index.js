@@ -91,7 +91,7 @@ function Dower() {
 function Panto() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const randomIndex = Math.floor(Math.random() * sentences.length);
-  const randomSentence = sentences[randomIndex]; // Get a random sentence
+  const randomSentence = sentences[randomIndex]; 
 
   return (
     <>
@@ -100,8 +100,8 @@ function Panto() {
       </Button>
       <div className='flex flex-col items-center justify-center gap-2'>
         <div className='flex flex-col items-center gap-3'>
-          <Avatar isBordered className='w-16 h-16' icon={<PiPerson className='text-gray-300 ' size={35} />} />
-          <span className='text-yellow-200 text-lg'>Pantomime </span>
+          <Avatar isBordered className='w-16 h-16' icon={<FaSnapchat className='text-gray-300 ' size={35} />} />
+          <span className='text-yellow-200 text-lg'>Dower </span>
         </div>
         <HintModal text={'in this game your team mate have to find the word . do not talk about the word directly'} isOpen={isOpen} onOpenChange={onOpenChange} />
         <span className='text-white text-xl'>{randomSentence}</span>
@@ -161,11 +161,11 @@ function MyButton({ Mode, label, color, round, scores, setScores, setRound, chan
     if (Mode === 4) {
       setRound((prevRound) => (prevRound === 0 ? 1 : 0));
     }
-    else if(Mode === 8){
-      if(round === 0) setRound(1)
-        else if(round === 1) setRound(2)
-        else if(round === 2) setRound(3)
-          else if(round === 3) setRound(0)
+    else if (Mode === 8) {
+      if (round === 0) setRound(1)
+      else if (round === 1) setRound(2)
+      else if (round === 2) setRound(3)
+      else if (round === 3) setRound(0)
     }
 
     // Change to the next component
@@ -236,67 +236,67 @@ function ScoreBoread4({ teams, scores }) {
 
 
   return (
-   <>
-    <div class="card " >
-      <div data-status="inprogress" class="teams">
-        <span class="team-info team-home">
-          <span class="team-info-container">
-            <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
+    <>
+      <div class="card " >
+        <div data-status="inprogress" class="teams">
+          <span class="team-info team-home">
+            <span class="team-info-container">
+              <span class="team-name-info">{teams[0]?.PlayerA + ' - ' + teams[0]?.PlayerB}</span>
+            </span>
           </span>
-        </span>
-        <span class="event-scoreboard">
-          <span class="event-score-container">
-            <span class="current-time-container">
-              <span class="progress-dots" data-progress="1S">
-                <span class="load"></span>
+          <span class="event-scoreboard">
+            <span class="event-score-container">
+              <span class="current-time-container">
+                <span class="progress-dots" data-progress="1S">
+                  <span class="load"></span>
+                </span>
+              </span>
+              <span class="score-container">
+                <span class="score-home">{scores[0]}</span>
+                <span class="custom-sep">-</span>
+                <span class="score-away">{scores[1]}</span>
               </span>
             </span>
-            <span class="score-container">
-              <span class="score-home">{scores[0]}</span>
-              <span class="custom-sep">-</span>
-              <span class="score-away">{scores[1]}</span>
+          </span>
+          <span class="team-info team-away">
+            <span class="team-info-container">
+              <span class="team-icon-container"></span>
+              <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
             </span>
           </span>
-        </span>
-        <span class="team-info team-away">
-          <span class="team-info-container">
-            <span class="team-icon-container"></span>
-            <span class="team-name-info">{teams[1]?.PlayerA + ' - ' + teams[1]?.PlayerB}</span>
-          </span>
-        </span>
+        </div>
       </div>
-    </div>
 
-    <div class="card mb-5" >
-      <div data-status="inprogress" class="teams">
-        <span class="team-info team-home">
-          <span class="team-info-container">
-            <span class="team-name-info">{teams[2]?.PlayerA + ' - ' + teams[2]?.PlayerB}</span>
+      <div class="card mb-5" >
+        <div data-status="inprogress" class="teams">
+          <span class="team-info team-home">
+            <span class="team-info-container">
+              <span class="team-name-info">{teams[2]?.PlayerA + ' - ' + teams[2]?.PlayerB}</span>
+            </span>
           </span>
-        </span>
-        <span class="event-scoreboard">
-          <span class="event-score-container">
-            <span class="current-time-container">
-              <span class="progress-dots" data-progress="1S">
-                <span class="load"></span>
+          <span class="event-scoreboard">
+            <span class="event-score-container">
+              <span class="current-time-container">
+                <span class="progress-dots" data-progress="1S">
+                  <span class="load"></span>
+                </span>
+              </span>
+              <span class="score-container">
+                <span class="score-home">{scores[2]}</span>
+                <span class="custom-sep">-</span>
+                <span class="score-away">{scores[3]}</span>
               </span>
             </span>
-            <span class="score-container">
-              <span class="score-home">{scores[2]}</span>
-              <span class="custom-sep">-</span>
-              <span class="score-away">{scores[3]}</span>
+          </span>
+          <span class="team-info team-away">
+            <span class="team-info-container">
+              <span class="team-icon-container"></span>
+              <span class="team-name-info">{teams[3]?.PlayerA + ' - ' + teams[3]?.PlayerB}</span>
             </span>
           </span>
-        </span>
-        <span class="team-info team-away">
-          <span class="team-info-container">
-            <span class="team-icon-container"></span>
-            <span class="team-name-info">{teams[3]?.PlayerA + ' - ' + teams[3]?.PlayerB}</span>
-          </span>
-        </span>
+        </div>
       </div>
-    </div>
-   </>
+    </>
   );
 }
 
@@ -312,7 +312,7 @@ function ScoreBoard({ teams, scores, mode }) {
             <ScoreBoread2 teams={teams} scores={scores} /> :
             <>
               <ScoreBoread4 teams={teams} scores={scores} />
-              
+
             </>
           :
           null
