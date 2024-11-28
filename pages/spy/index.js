@@ -197,6 +197,7 @@ const Spy = () => {
   const components = [
     <Panto key="panto" />,
     <Dower key="dower" />,
+    <Dower key="dower" />,
     <WichHand key="wichHand" />,
     <RSPGame key="rspGame" />
   ];
